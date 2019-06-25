@@ -1,6 +1,10 @@
-#include "Collections.h"
-#include "main.h"
+#include "List.h"
+#include "String.h"
+#include "Huffman.h"
+using namespace Collections;
 int main()
 {
-	List<char> string = List<char>("Test", 5);
+	const char* message = "OurMessage";
+	List<char> string = List<char>(message, strlen(message));
+	Huffman *huf = new Huffman();
 }

@@ -124,7 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Collections.h" />
-    <ClInclude Include="main.h" />
+    <ClInclude Include="Huffman.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

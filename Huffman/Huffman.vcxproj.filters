@@ -18,7 +18,7 @@
     <ClInclude Include="Collections.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
+    <ClInclude Include="Huffman.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
