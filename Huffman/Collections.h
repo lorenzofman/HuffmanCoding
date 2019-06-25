@@ -9,8 +9,8 @@ class List
 		void EnsureCapacity(int newSize);
 	public:
 		List();
+		List(const T* array, int size);
 		void Add(T item);
-		void InitializeList();
 		int Count();
 		T& operator[] (const int idx);
 };
@@ -19,9 +19,18 @@ template<class T>
 List<T>::List()
 {
 	count = 0;
-	capacity = 0;
-	arrayList = nullptr;
-	InitializeList();
+	capacity = 1;
+	arrayList = new T[1];
+}
+
+template<class T>
+List<T>::List(const T* array, int size)
+{
+	*this = List();
+	for(int i = 0; i < size; i++)
+	{
+		Add(array[i]);
+	}
 }
 
 template<class T>
@@ -48,12 +57,6 @@ inline void List<T>::Add(T item)
 	arrayList[count - 1] = item;
 }
 
-template<class T>
-inline void List<T>::InitializeList()
-{
-	capacity = 1;
-	arrayList = new T[1];
-}
 
 template<class T>
 inline int List<T>::Count()
