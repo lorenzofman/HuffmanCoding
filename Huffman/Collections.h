@@ -2,17 +2,18 @@
 template <class T>
 class List
 {
-	private:
-		T* arrayList;
-		int count;
-		int capacity;
-		void EnsureCapacity(int newSize);
-	public:
-		List();
-		List(const T* array, int size);
-		void Add(T item);
-		int Count();
-		T& operator[] (const int idx);
+private:
+	T* arrayList;
+	int count;
+	int capacity;
+	void EnsureCapacity(int newSize);
+public:
+	List();
+	List(const T* array, int size);
+	void Add(T item);
+	T* Find(T element);
+	int Count();
+	T& operator[] (const int idx);
 };
 
 template<class T>
@@ -27,7 +28,7 @@ template<class T>
 List<T>::List(const T* array, int size)
 {
 	*this = List();
-	for(int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++)
 	{
 		Add(array[i]);
 	}
@@ -55,6 +56,19 @@ inline void List<T>::Add(T item)
 {
 	EnsureCapacity(++count);
 	arrayList[count - 1] = item;
+}
+
+template<class T>
+inline T* List<T>::Find(T element)
+{
+	for (int i = 0; i < count; i++)
+	{
+		if (arrayList[i] == element)
+		{
+			return &arrayList[i];
+		}
+	}
+	return nullptr;
 }
 
 
