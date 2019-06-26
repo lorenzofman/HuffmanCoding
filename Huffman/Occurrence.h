@@ -6,23 +6,24 @@ template <typename T>
 class Occurrence
 {
 public:
-	T key;
+	T* key;
 	int count;
 	inline bool operator>(const Occurrence<T>&) const;
 	inline bool operator<(const Occurrence<T>&) const;
 	inline bool operator == (const Occurrence<T>&) const;
 }; template<typename T>
 
-Occurrence<T>* FindOccurrences(std::ifstream *stream) 
+Occurrence<T>* FindTextFileOccurrences(std::ifstream *stream) 
 {
-	Occurrence<T>* occurrences = (Occurrence<T>*)malloc(sizeof(Occurrence<T>) * 256);
-	if (occurrences == 0)
+	Occurrence<T>* occurrences = new Occurrence<T>[256];
+	char *characters = new char[256];
+	for (int i = 0; i < 256; i++)
 	{
-		return 0;
+		characters[i] = i;
 	}
 	for (int i = 0; i < 256; i++)
 	{
-		occurrences[i].key = i;
+		occurrences[i].key = &characters[i];
 		occurrences[i].count = 0;
 	}
 	char ch;
@@ -45,11 +46,7 @@ Occurrence<T>* FilterOccurrences(Occurrence<T>* occurrences, int* size, int* fil
 		}
 		(*fileSize)++;
 	}
-	Occurrence<T>* filtered = (Occurrence<T>*)malloc(sizeof(Occurrence<T>) * 256);
-	if (filtered == 0)
-	{
-		return 0;
-	}
+	Occurrence<T>* filtered = new Occurrence<T>[256];
 	int j = 0;
 	for (int i = 0; i < 256; i++)
 	{
