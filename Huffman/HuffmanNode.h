@@ -33,6 +33,8 @@ HuffmanNode::HuffmanNode(char key, HuffmanNode* left, HuffmanNode*right, int fre
 inline HuffmanNode* HuffmanNode::Merge(HuffmanNode* other)
 {
 	HuffmanNode* merged = new HuffmanNode(0, this, other, this->frequency + other->frequency);
+	this->parent = merged;
+	other->parent = merged;
 	return merged;
 }
 

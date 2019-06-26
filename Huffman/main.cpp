@@ -8,7 +8,7 @@ int main()
 {
 	std::ifstream *testFile = new std::ifstream("test.txt", std::ifstream::in);
 	Huffman<char> huffman;
-	huffman.Encode(testFile);
+	huffman.Compress(testFile);
 	ArrayList<char> c = ArrayList<char>();
 	return 0;
 }

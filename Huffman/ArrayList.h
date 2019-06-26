@@ -3,19 +3,18 @@ template <class T>
 class ArrayList
 {
 private:
-	T** arrayList;
+	T* arrayList;
 	int count;
 	int capacity;
 	void EnsureCapacity(int);
 public:
 	ArrayList();
 	//ArrayList(const T*, int);
-	void Add(T&);
-	void Add(T*);
+	void Add(T);
 	int IndexOf(T);
-	T* Remove(T);
-	T* RemoveAt(int);
-	T* Find(T);
+	T Remove(T);
+	T RemoveAt(int);
+	T Find(T);
 	T Min();
 	int Count();
 	T& operator[] (int);
@@ -26,7 +25,7 @@ ArrayList<T>::ArrayList()
 {
 	count = 0;
 	capacity = 1;
-	arrayList = new T*[1];
+	arrayList = new T[1];
 }
 /*
 template<class T>
@@ -46,25 +45,19 @@ void ArrayList<T>::EnsureCapacity(int newSize)
 	if (newSize > capacity)
 	{
 		int newCapacity = capacity * 2; // Could use fibonacci as well
-		T** newArray = new T*[newCapacity];
-		for (int i = 0; i < capacity; i++)
+		T*newArray = new T[newCapacity];
+		for (int i = 0; i < count; i++)
 		{
 			newArray[i] = arrayList[i];
 		}
-		delete arrayList;
+		//delete[] arrayList;
 		arrayList = newArray;
 		capacity = newCapacity;
 	}
 }
 
 template<class T>
-void ArrayList<T>::Add(T& item)
-{
-	EnsureCapacity(++count);
-	arrayList[count - 1] = &item;
-}
-template<class T>
-void ArrayList<T>::Add(T* item)
+void ArrayList<T>::Add(T item)
 {
 	EnsureCapacity(++count);
 	arrayList[count - 1] = item;
@@ -75,7 +68,7 @@ int ArrayList<T>::IndexOf(T element)
 {
 	for (int i = 0; i < count; i++)
 	{
-		if (element == *(arrayList[i]))
+		if (element == arrayList[i])
 		{
 			return i;
 		}
@@ -84,18 +77,18 @@ int ArrayList<T>::IndexOf(T element)
 }
 
 template<class T>
-T* ArrayList<T>::Remove(T element)
+T ArrayList<T>::Remove(T element)
 {
 	return RemoveAt(IndexOf(element));
 }
 template<class T>
-T* ArrayList<T>::RemoveAt(int idx)
+T ArrayList<T>::RemoveAt(int idx)
 {
 	if (idx < 0 || idx >= count)
 	{
 		throw "IndexOutOfRangeException";
 	}
-	T* element = arrayList[idx];
+	T element = arrayList[idx];
 	for (int i = idx; i < count - 1; i++)
 	{
 		arrayList[i] = arrayList[i + 1];
@@ -105,7 +98,7 @@ T* ArrayList<T>::RemoveAt(int idx)
 }
 
 template<class T>
-T* ArrayList<T>::Find(T element)
+T ArrayList<T>::Find(T element)
 {
 	return arrayList[IndexOf(element)];
 }
@@ -117,12 +110,12 @@ inline T ArrayList<T>::Min()
 	{
 		throw "Exception";
 	}
-	T element = *(arrayList[0]);
+	T element = arrayList[0];
 	for (int i = 0; i < count; i++)
 	{
-		if (*(arrayList[i]) < element)
+		if (arrayList[i] < element)
 		{
-			element = *(arrayList[i]);
+			element = arrayList[i];
 		}
 	}
 	return element;
@@ -142,5 +135,5 @@ T& ArrayList<T>::operator[](int idx)
 	{
 		throw "IndexOutOfRangeException";
 	}
-	return *arrayList[idx];
+	return arrayList[idx];
 }

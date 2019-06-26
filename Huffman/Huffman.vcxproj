@@ -23,6 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayList.h" />
+    <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Huffman.h" />
     <ClInclude Include="HuffmanNode.h" />
     <ClInclude Include="Occurrence.h" />
