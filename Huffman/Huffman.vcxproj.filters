@@ -15,22 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
+    <ClCompile Include="Huffman.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sorting.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Huffman.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Occurrence.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LinkedList.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="List.c">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -43,12 +31,6 @@
     </ClInclude>
     <ClInclude Include="Occurrence.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LinkedList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="List.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

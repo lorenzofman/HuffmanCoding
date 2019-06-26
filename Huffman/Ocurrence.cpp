@@ -30,11 +30,7 @@ Occurrence* FilterOccurrences(Occurrence* occurrences, int* size)
 			(*size)++;
 		}
 	}
-	Occurrence* filtered = (Occurrence*)malloc(sizeof(Occurrence) * 256);
-	if (filtered == 0)
-	{
-		return 0;
-	}
+	Occurrence* filtered = new Ocurrence[256];
 	int j = 0;
 	for (int i = 0; i < 256; i++)
 	{

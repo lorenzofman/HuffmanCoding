@@ -1,14 +1,12 @@
-#ifndef SORTING
-#define SORTING
+#pragma once
 template <typename T>
 class Quick
 {
 private:
 	void Sort(T* data, int start, int end);
-	public:
+public:
 	void Sort(T* data, int size);
 };
-#endif
 
 template<typename T>
 inline void Quick<T>::Sort(T* data, int start, int end)
