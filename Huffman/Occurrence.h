@@ -2,28 +2,22 @@
 #include <iostream>
 #include <fstream>
 
-template <typename T>
 class Occurrence
 {
 public:
-	T* key;
+	char key;
 	int count;
-	inline bool operator>(const Occurrence<T>&) const;
-	inline bool operator<(const Occurrence<T>&) const;
-	inline bool operator == (const Occurrence<T>&) const;
+	inline bool operator>(const Occurrence&) const;
+	inline bool operator<(const Occurrence&) const;
+	inline bool operator == (const Occurrence&) const;
 }; template<typename T>
 
-Occurrence<T>* FindTextFileOccurrences(std::ifstream *stream) 
+Occurrence* FindTextFileOccurrences(std::ifstream *stream) 
 {
-	Occurrence<T>* occurrences = new Occurrence<T>[256];
-	char *characters = new char[256];
+	Occurrence* occurrences = new Occurrence[256];
 	for (int i = 0; i < 256; i++)
 	{
-		characters[i] = i;
-	}
-	for (int i = 0; i < 256; i++)
-	{
-		occurrences[i].key = &characters[i];
+		occurrences[i].key = i;
 		occurrences[i].count = 0;
 	}
 	char ch;
@@ -34,8 +28,7 @@ Occurrence<T>* FindTextFileOccurrences(std::ifstream *stream)
 	return occurrences;
 }
 
-template<typename T>
-Occurrence<T>* FilterOccurrences(Occurrence<T>* occurrences, int* size, int* fileSize)
+Occurrence* FilterOccurrences(Occurrence* occurrences, int* size, int* fileSize)
 {
 	*size = 0;
 	for (int i = 0; i < 256; i++)
@@ -46,7 +39,7 @@ Occurrence<T>* FilterOccurrences(Occurrence<T>* occurrences, int* size, int* fil
 		}
 		(*fileSize)++;
 	}
-	Occurrence<T>* filtered = new Occurrence<T>[256];
+	Occurrence* filtered = new Occurrence[256];
 	int j = 0;
 	for (int i = 0; i < 256; i++)
 	{
@@ -58,20 +51,17 @@ Occurrence<T>* FilterOccurrences(Occurrence<T>* occurrences, int* size, int* fil
 	return filtered;
 }
 
-template<typename T>
-inline bool Occurrence<T>::operator>(const Occurrence<T>& someOccurrence) const
+inline bool Occurrence::operator>(const Occurrence& someOccurrence) const
 {
 	return count > someOccurrence.count;
 }
 
-template<typename T>
-inline bool Occurrence<T>::operator<(const Occurrence<T>& someOccurrence) const
+inline bool Occurrence::operator<(const Occurrence& someOccurrence) const
 {
 	return count < someOccurrence.count;
 }
 
-template<typename T>
-inline bool Occurrence<T>::operator==(const Occurrence<T>& occurrence) const
+inline bool Occurrence::operator==(const Occurrence& occurrence) const
 {
 	return(this->key == occurrence.key);
 }

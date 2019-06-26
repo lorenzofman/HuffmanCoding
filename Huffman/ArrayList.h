@@ -100,6 +100,7 @@ T* ArrayList<T>::RemoveAt(int idx)
 	{
 		arrayList[i] = arrayList[i + 1];
 	}
+	count--;
 	return element;
 }
 
@@ -119,7 +120,7 @@ inline T ArrayList<T>::Min()
 	T element = *(arrayList[0]);
 	for (int i = 0; i < count; i++)
 	{
-		if (element < *(arrayList[i]))
+		if (*(arrayList[i]) < element)
 		{
 			element = *(arrayList[i]);
 		}
