@@ -1,13 +1,20 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include "ArrayList.h"
 template <typename T>
 class Huffman
 {
 public:
-	void Encode(std::ifstream *stream);
-	void Decode(std::ifstream *stream);
+	void Encode(std::ifstream *);
+	void Decode(std::ifstream *);
 };
+
+template<typename T>
+void CreateGreedyTree(Occurrence<T>* filteredOccurrences, int filteredOccurrencesSize, int fileSize)
+{
+	ArrayList<Occurrence<T>> list = new ArrayList<Occurrence<T>>(filteredOccurrences, filteredOccurrencesSize);
+}
 
 template<typename T>
 void Huffman<T>::Encode(std::ifstream* stream)
@@ -21,7 +28,7 @@ void Huffman<T>::Encode(std::ifstream* stream)
 		std::cout << filteredOccurrences[i].key << "  " << filteredOccurrences[i].count << std::endl;
 	}
 	delete occurrences;
-	//CreateGreedyTree(filteredOccurrences, filteredOccurrencesSize, fileSize);
+	CreateGreedyTree<T>(filteredOccurrences, filteredOccurrencesSize, fileSize);
 	delete filteredOccurrences;
 }
 
