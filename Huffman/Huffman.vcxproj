@@ -22,6 +22,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayList.h" />
     <ClInclude Include="Huffman.h" />
     <ClInclude Include="Occurrence.h" />
     <ClInclude Include="Sorting.h" />

@@ -12,7 +12,7 @@ public:
 	inline bool operator<(const Occurrence<T>& someOccurrence) const;
 }; template<typename T>
 
-inline Occurrence<T>* FindOccurrences(std::ifstream *stream) 
+Occurrence<T>* FindOccurrences(std::ifstream *stream) 
 {
 	Occurrence<T>* occurrences = (Occurrence<T>*)malloc(sizeof(Occurrence<T>) * 256);
 	if (occurrences == 0)
@@ -33,7 +33,7 @@ inline Occurrence<T>* FindOccurrences(std::ifstream *stream)
 }
 
 template<typename T>
-inline Occurrence<T>* FilterOccurrences(Occurrence<T>* occurrences, int* size, int* fileSize)
+Occurrence<T>* FilterOccurrences(Occurrence<T>* occurrences, int* size, int* fileSize)
 {
 	*size = 0;
 	for (int i = 0; i < 256; i++)
