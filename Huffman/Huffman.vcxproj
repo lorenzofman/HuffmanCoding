@@ -19,12 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Huffman.c" />
+    <ClCompile Include="LinkedList.c" />
+    <ClCompile Include="List.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="Ocurrence.c" />
+    <ClCompile Include="Occurrence.c" />
     <ClCompile Include="Sorting.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ocurrence.h" />
+    <ClInclude Include="Huffman.h" />
+    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="Occurrence.h" />
     <ClInclude Include="Sorting.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

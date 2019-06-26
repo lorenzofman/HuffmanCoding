@@ -21,7 +21,16 @@
     <ClCompile Include="Sorting.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ocurrence.c">
+    <ClCompile Include="Huffman.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Occurrence.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedList.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="List.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,8 +38,17 @@
     <ClInclude Include="Sorting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ocurrence.h">
+    <ClInclude Include="Huffman.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Occurrence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

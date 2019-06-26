@@ -1,8 +1,12 @@
-#include "Ocurrence.h"
+#include "Occurrence.h"
 
 Occurrence* FindOccurrences(File* file)
 {
 	Occurrence* occurrences = (Occurrence*)malloc(sizeof(Occurrence) * 256);
+	if (occurrences == 0)
+	{
+		return 0;
+	}
 	for (int i = 0; i < 256; i++)
 	{
 		occurrences[i].key = i;
@@ -15,7 +19,7 @@ Occurrence* FindOccurrences(File* file)
 	return occurrences;
 }
 
-Occurrence* FilterOccurrences(Occurrence* occurrences, int* size)
+Occurrence* FilterOccurrences(Occurrence* occurrences, int* size, int* fileSize)
 {
 	*size = 0;
 	for (int i = 0; i < 256; i++)
@@ -24,8 +28,13 @@ Occurrence* FilterOccurrences(Occurrence* occurrences, int* size)
 		{
 			(*size)++;
 		}
+		(*fileSize)++;
 	}
 	Occurrence* filtered = (Occurrence*)malloc(sizeof(Occurrence) * 256);
+	if (filtered == 0) 
+	{
+		return 0;
+	}
 	int j = 0;
 	for (int i = 0; i < 256; i++)
 	{

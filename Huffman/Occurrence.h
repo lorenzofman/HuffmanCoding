@@ -10,5 +10,5 @@ typedef struct Occurrence
 
 typedef FILE File;
 Occurrence* FindOccurrences(File* file);
-Occurrence* FilterOccurrences(Occurrence* occurrences, int* size);
+Occurrence* FilterOccurrences(Occurrence* occurrences, int* size, int* fileSize);
 #endif
