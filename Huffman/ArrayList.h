@@ -11,9 +11,10 @@ public:
 	ArrayList();
 	ArrayList(const T*, int);
 	void Add(T&);
-	void IndexOf(T);
-	void Remove(T);
-	void RemoveAt(int);
+	void Add(T*);
+	int IndexOf(T);
+	T* Remove(T);
+	T* RemoveAt(int);
 	T* Find(T);
 	int Count();
 	T& operator[] (int);
@@ -60,9 +61,15 @@ void ArrayList<T>::Add(T& item)
 	EnsureCapacity(++count);
 	arrayList[count - 1] = &item;
 }
+template<class T>
+void ArrayList<T>::Add(T* item)
+{
+	EnsureCapacity(++count);
+	arrayList[count - 1] = item;
+}
 
 template<class T>
-inline void ArrayList<T>::IndexOf(T element)
+int ArrayList<T>::IndexOf(T element)
 {
 	for (int i = 0; i < count; i++)
 	{
@@ -75,33 +82,27 @@ inline void ArrayList<T>::IndexOf(T element)
 }
 
 template<class T>
-inline void ArrayList<T>::Remove(T element)
+T* ArrayList<T>::Remove(T element)
 {
-	RemoveAt(IndexOf(element);
-
+	return RemoveAt(IndexOf(element));
 }
-
 template<class T>
-inline void ArrayList<T>::RemoveAt(int idx)
+T* ArrayList<T>::RemoveAt(int idx)
 {
 	if (idx < 0 || idx >= count)
 	{
 		throw "IndexOutOfRangeException";
 	}
-
+	for (int i = idx; i < count - 1; i++)
+	{
+		arrayList[i] = arrayList[i + 1];
+	}
 }
 
 template<class T>
 T* ArrayList<T>::Find(T element)
 {
-	for (int i = 0; i < count; i++)
-	{
-		if (arrayList[i] == element)
-		{
-			return arrayList[i];
-		}
-	}
-	return nullptr;
+	return arrayList[IndexOf(element)];
 }
 
 

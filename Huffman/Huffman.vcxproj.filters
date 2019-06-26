@@ -29,6 +29,9 @@
     <ClInclude Include="Occurrence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HuffmanNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ArrayList.h">
       <Filter>Header Files</Filter>
     </ClInclude>

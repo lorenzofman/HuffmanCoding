@@ -3,7 +3,6 @@
 #include "Huffman.h"
 #include <iostream>
 #include <fstream>
-#include "ArrayList.h"
 int main()
 {
 	std::ifstream *testFile = new std::ifstream("test.txt", std::ifstream::in);

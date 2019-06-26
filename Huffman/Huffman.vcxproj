@@ -24,6 +24,7 @@
   <ItemGroup>
     <ClInclude Include="ArrayList.h" />
     <ClInclude Include="Huffman.h" />
+    <ClInclude Include="HuffmanNode.h" />
     <ClInclude Include="Occurrence.h" />
     <ClInclude Include="Sorting.h" />
   </ItemGroup>
