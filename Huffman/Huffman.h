@@ -9,9 +9,8 @@ class Huffman
 };
 
 template<typename T>
-inline void Huffman<T>::Encode(std::ifstream stream)
+void Huffman<T>::Encode(std::ifstream stream)
 {
-	exit(0);
 	/*
 	int filteredOccurrencesSize, fileSize;
 	Occurrence* occurrences = FindOccurrences(stream);
@@ -21,10 +20,9 @@ inline void Huffman<T>::Encode(std::ifstream stream)
 	CreateGreedyTree(filteredOccurrences, filteredOccurrencesSize, fileSize);
 	free(filteredOccurrences);
 	*/
-	
 }
 
 template<typename T>
-inline void Huffman<T>::Decode(std::ifstream stream)
+void Huffman<T>::Decode(std::ifstream stream)
 {
 }
