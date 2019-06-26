@@ -1,6 +1,6 @@
 #include "Occurrence.h"
 
-Occurrence* FindOccurrences(File* file)
+Occurrence* FindOccurrences(std::ifstream stream)
 {
 	Occurrence* occurrences = (Occurrence*)malloc(sizeof(Occurrence) * 256);
 	if (occurrences == 0)
@@ -12,7 +12,7 @@ Occurrence* FindOccurrences(File* file)
 		occurrences[i].key = i;
 	}
 	char ch;
-	while ((ch = fgetc(file)) != EOF)
+	while ((ch = stream.get()) != EOF)
 	{
 		occurrences[ch].count++;
 	}

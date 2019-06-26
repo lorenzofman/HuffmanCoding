@@ -1,14 +1,10 @@
-#ifndef OCCURRENCE
-#define OCCURRENCE
-#include <stdio.h>
-#include <stdlib.h>
+#pragma once
+#include <fstream>
 typedef struct Occurrence
 {
 	char key;
 	int count;
 }Occurrence;
 
-typedef FILE File;
-Occurrence* FindOccurrences(File* file);
+Occurrence* FindOccurrences(std::ifstream stream);
 Occurrence* FilterOccurrences(Occurrence* occurrences, int* size, int* fileSize);
-#endif
