@@ -16,6 +16,10 @@ void Huffman<T>::Encode(std::ifstream* stream)
 	Occurrence<T>* occurrences = FindOccurrences<T>(stream);
 	Occurrence<T>* filteredOccurrences = FilterOccurrences(occurrences, &filteredOccurrencesSize, &fileSize);
 	QuickSort<Occurrence<T>>(filteredOccurrences, filteredOccurrencesSize);
+	for (int i = 0; i < filteredOccurrencesSize; i++)
+	{
+		std::cout << filteredOccurrences[i].key << "  " << filteredOccurrences[i].count << std::endl;
+	}
 	delete occurrences;
 	//CreateGreedyTree(filteredOccurrences, filteredOccurrencesSize, fileSize);
 	delete filteredOccurrences;

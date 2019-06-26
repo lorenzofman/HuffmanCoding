@@ -22,6 +22,7 @@ inline Occurrence<T>* FindOccurrences(std::ifstream *stream)
 	for (int i = 0; i < 256; i++)
 	{
 		occurrences[i].key = i;
+		occurrences[i].count = 0;
 	}
 	char ch;
 	while ((ch = stream->get()) != EOF)
