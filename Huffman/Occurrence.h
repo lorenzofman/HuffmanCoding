@@ -5,14 +5,14 @@
 template <typename T>
 class Occurrence
 {
+public:
 	T key;
 	int count;
-	Occurrence<T>* FindOccurrences(std::ifstream stream);
-	Occurrence<T>* FilterOccurrences(Occurrence* occurrences, int* size, int* fileSize);
-};
+	inline bool operator>(const Occurrence<T>& someOccurrence) const;
+	inline bool operator<(const Occurrence<T>& someOccurrence) const;
+}; template<typename T>
 
-template<typename T>
-inline Occurrence<T>* Occurrence<T>::FindOccurrences(std::ifstream stream)
+inline Occurrence<T>* FindOccurrences(std::ifstream *stream) 
 {
 	Occurrence<T>* occurrences = (Occurrence<T>*)malloc(sizeof(Occurrence<T>) * 256);
 	if (occurrences == 0)
@@ -24,7 +24,7 @@ inline Occurrence<T>* Occurrence<T>::FindOccurrences(std::ifstream stream)
 		occurrences[i].key = i;
 	}
 	char ch;
-	while ((ch = stream.get()) != EOF)
+	while ((ch = stream->get()) != EOF)
 	{
 		occurrences[ch].count++;
 	}
@@ -32,7 +32,7 @@ inline Occurrence<T>* Occurrence<T>::FindOccurrences(std::ifstream stream)
 }
 
 template<typename T>
-inline Occurrence<T>* Occurrence<T>::FilterOccurrences(Occurrence<T>* occurrences, int* size, int* fileSize)
+inline Occurrence<T>* FilterOccurrences(Occurrence<T>* occurrences, int* size, int* fileSize)
 {
 	*size = 0;
 	for (int i = 0; i < 256; i++)
@@ -57,4 +57,16 @@ inline Occurrence<T>* Occurrence<T>::FilterOccurrences(Occurrence<T>* occurrence
 		}
 	}
 	return filtered;
+}
+
+template<typename T>
+inline bool Occurrence<T>::operator>(const Occurrence<T>& someOccurrence) const
+{
+	return count > someOccurrence.count;
+}
+
+template<typename T>
+inline bool Occurrence<T>::operator<(const Occurrence<T>& someOccurrence) const
+{
+	return count < someOccurrence.count;
 }

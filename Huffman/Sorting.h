@@ -1,18 +1,10 @@
 #pragma once
-template <typename T>
-class Quick
-{
-private:
-	void Sort(T* data, int start, int end);
-public:
-	void Sort(T* data, int size);
-};
 
 template<typename T>
-inline void Quick<T>::Sort(T* data, int start, int end)
+void QuickSort(T* data, int start, int end)
 {
-	int pivot, aux, i, j, mid;
-
+	int i, j, mid;
+	T pivot, aux;
 	i = start;
 	j = end;
 
@@ -32,12 +24,12 @@ inline void Quick<T>::Sort(T* data, int start, int end)
 		}
 	} while (j > i);
 
-	if (start < j) Quick(data, start, j);
-	if (i < end) Quick(data, i, end);
+	if (start < j) QuickSort(data, start, j);
+	if (i < end) QuickSort(data, i, end);
 }
 
 template<typename T>
-inline void Quick<T>::Sort(T* data, int size)
+void QuickSort(T* data, int size)
 {
-	Quick(data, 0, size - 1);
+	QuickSort(data, 0, size - 1);
 }
