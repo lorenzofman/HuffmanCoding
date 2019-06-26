@@ -8,8 +8,9 @@ class Occurrence
 public:
 	T key;
 	int count;
-	inline bool operator>(const Occurrence<T>& someOccurrence) const;
-	inline bool operator<(const Occurrence<T>& someOccurrence) const;
+	inline bool operator>(const Occurrence<T>&) const;
+	inline bool operator<(const Occurrence<T>&) const;
+	inline bool operator == (const Occurrence<T>&) const;
 }; template<typename T>
 
 Occurrence<T>* FindOccurrences(std::ifstream *stream) 
@@ -70,4 +71,10 @@ template<typename T>
 inline bool Occurrence<T>::operator<(const Occurrence<T>& someOccurrence) const
 {
 	return count < someOccurrence.count;
+}
+
+template<typename T>
+inline bool Occurrence<T>::operator==(const Occurrence<T>& occurrence) const
+{
+	return(this->key == occurrence.key);
 }
