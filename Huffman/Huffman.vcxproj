@@ -20,6 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="Ocurrence.c" />
+    <ClCompile Include="Sorting.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Ocurrence.h" />
+    <ClInclude Include="Sorting.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
