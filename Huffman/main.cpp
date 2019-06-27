@@ -11,6 +11,5 @@ int main()
 	Huffman<char> huffman;
 	huffman.Compress(testFile);
 	ArrayList<char> c = ArrayList<char>();
-
 	return 0;
 }

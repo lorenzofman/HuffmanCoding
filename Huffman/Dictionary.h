@@ -1,10 +1,15 @@
 #pragma once
+#include "ByteArray.h"
 class Dictionary
 {
 public:
 	char key;
-	char* code;
-	Dictionary(char key, char* code)
+	ByteArray code;
+	bool operator== (Dictionary& other)
+	{
+		return this->key == other.key;
+	}
+	Dictionary(char key, ByteArray code)
 	{
 		this->key = key;
 		this->code = code;
@@ -12,6 +17,6 @@ public:
 	Dictionary()
 	{
 		key = 0;
-		code = nullptr;
+		code = ByteArray();
 	}
 };

@@ -4,6 +4,7 @@
 #include "HuffmanNode.h"
 #include "ArrayList.h"
 #include "Dictionary.h"
+#include "ByteArray.h"
 template <typename T>
 class Huffman
 {
@@ -14,8 +15,9 @@ public:
 
 Dictionary TracebackCode(HuffmanNode* leaf, int height)
 {
+	ByteArray arrayList;
 	int size = height;
-	char* str = new char[size];
+	//char* str = new char[size];
 	HuffmanNode* from = leaf;
 	char c = from->key;
 	leaf = leaf->parent;
@@ -23,17 +25,19 @@ Dictionary TracebackCode(HuffmanNode* leaf, int height)
 	{
 		if (leaf->left == from)
 		{
-			str[height - 1] = '0';
+			arrayList.AddBit(false);
+			//str[height - 1] = '0';
 		}
 		else 
 		{
-			str[height - 1] = '1';
+			arrayList.AddBit(true);
+			//str[height - 1] = '1';
 		}
 		from = leaf;
 		leaf = leaf->parent;
 	}
-	str[size - 1] = 0;
-	return Dictionary(c, str);
+	//str[size - 1] = 0;
+	return Dictionary(c, arrayList);
 }
 void ExtractCodesFromHeap(HuffmanNode* root, ArrayList<Dictionary>* codes, int height)
 {
@@ -64,14 +68,32 @@ HuffmanNode* CreateHuffmanHeap(Occurrence* sortedOccurrences, int size, int file
 	return workingNodes[0];
 }
 
-char* ConvertByteArrayToCompressedString(ArrayList<bool> list)
-{
-	return nullptr;
-}
-
 void CreateOutputFileFromStreamAndDictionaries(std::ifstream* stream, ArrayList<Dictionary> codes)
 {
-	
+	std::ofstream writer = std::ofstream("compress.txt");
+	ByteArray byteFile;
+	for (int i = 0; i < codes.Count(); i++)
+	{
+		for(int j = 0; j < codes[i].code.list.Count(); j++)
+		{
+			byteFile.AddBit(codes[i].code.list[j]);
+		}
+		byteFile.AddByte(codes[i].key);
+	}
+	byteFile.AddByte('\n');
+	char ch;
+	Dictionary containerVariable;
+	while ((ch = stream->get()) != EOF)
+	{
+		containerVariable.key = ch;
+		Dictionary real = codes.Find(containerVariable);
+		for (int i = 0; i < real.code.position; i++)
+		{
+			char c = real.code.list[i / 8];
+			byteFile.AddBit(GetBit(c, i % 8));
+		}
+	}
+	writer.write(byteFile.ToString(), byteFile.list.Count() + 1);
 }
 
 template<typename T>
@@ -87,10 +109,6 @@ void Huffman<T>::Compress(std::ifstream* stream)
 	ExtractCodesFromHeap(root, &codes, 1);
 	stream->clear();
 	stream->seekg(0);
-	for (int i = 0; i < codes.Count(); i++)
-	{
-		std::cout << codes[i].key << " <=>" << codes[i].code << std::endl;
-	}
 	CreateOutputFileFromStreamAndDictionaries(stream, codes);
 	delete filteredOccurrences;
 }
