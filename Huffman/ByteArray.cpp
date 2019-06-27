@@ -30,7 +30,6 @@ void ByteArray::AddByte(char byte)
 		AddBit(GetBit(byte,i));
 	}
 }
-
 char* ByteArray::ToString()
 {
 	char* str = new char[list.Count() + 1];
