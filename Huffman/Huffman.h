@@ -64,6 +64,11 @@ HuffmanNode* CreateHuffmanHeap(Occurrence* sortedOccurrences, int size, int file
 	return workingNodes[0];
 }
 
+char* ConvertByteArrayToCompressedString(ArrayList<bool> list)
+{
+	return nullptr;
+}
+
 void CreateOutputFileFromStreamAndDictionaries(std::ifstream* stream, ArrayList<Dictionary> codes)
 {
 	

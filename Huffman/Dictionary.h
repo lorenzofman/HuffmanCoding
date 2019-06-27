@@ -9,5 +9,9 @@ public:
 		this->key = key;
 		this->code = code;
 	}
-	Dictionary(){}
+	Dictionary()
+	{
+		key = 0;
+		code = nullptr;
+	}
 };

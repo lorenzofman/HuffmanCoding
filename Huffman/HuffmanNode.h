@@ -28,6 +28,7 @@ HuffmanNode::HuffmanNode(char key, HuffmanNode* left, HuffmanNode*right, int fre
 	this->key = key;
 	this->left = left;
 	this->right = right;
+	this->parent = nullptr;
 	this->frequency = frequency;
 }
 inline HuffmanNode* HuffmanNode::Merge(HuffmanNode* other)

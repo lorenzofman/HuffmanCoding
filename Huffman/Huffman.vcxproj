@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ByteArray.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayList.h" />
+    <ClInclude Include="ByteArray.h" />
     <ClInclude Include="Dictionary.h" />
     <ClInclude Include="Huffman.h" />
     <ClInclude Include="HuffmanNode.h" />
