@@ -81,16 +81,21 @@ void CreateOutputFileFromStreamAndDictionaries(std::ifstream* stream, ArrayList<
 	byteFile.AddByte('\n');
 	char ch;
 	Dictionary containerVariable;
+	Dictionary real;
+	int bits = 0;
 	while ((ch = stream->get()) != EOF)
 	{
 		containerVariable.key = ch;
-		Dictionary real = codes.Find(containerVariable);
+		real = codes.Find(containerVariable);
 		for (int i = 0; i < real.code.position; i++)
 		{
 			char c = real.code.list[i / 8];
 			byteFile.AddBit(GetBit(c, i % 8));
 		}
+		bits++;
 	}
+	int position = real.code.position + (bits - 1);
+	writer.write(reinterpret_cast<const char*>(&position), 4);
 	writer.write(byteFile.ToString(), byteFile.list.Count() + 1);
 }
 
