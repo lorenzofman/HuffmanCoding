@@ -1,14 +1,14 @@
 #include "ByteArray.h"
 bool GetBit(char c, int pos)
 {
-	char mask = 1 << (7 - pos);
+	char mask = 1 << pos;
 	c &= mask;
 	return (bool)c;
 }
 char SetBit(char c, int pos, bool newValue)
 {
 	char mask = newValue;
-	mask <<= (7-pos);
+	mask <<= pos;
 	c |= mask;
 	return c;
 }

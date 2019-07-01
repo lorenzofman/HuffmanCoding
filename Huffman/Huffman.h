@@ -74,6 +74,7 @@ void CreateOutputFileFromStreamAndDictionaries(std::ifstream* stream, ArrayList<
 	ByteArray byteFile;
 	for (int i = 0; i < codes.Count(); i++)
 	{
+		byteFile.AddByte((char)codes[i].code.position);
 		byteFile.AddByte(codes[i].code.list[0]);
 		byteFile.AddByte(codes[i].key);
 	}
