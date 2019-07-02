@@ -5,6 +5,7 @@ class ByteArray
 private:
 public:
 	int position;
+	bool Get(int pos);
 	void AddBit(bool bit);
 	void AddByte(char byte);
 	char* ToString();

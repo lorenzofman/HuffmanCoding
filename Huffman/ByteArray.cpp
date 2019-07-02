@@ -12,6 +12,10 @@ char SetBit(char c, int pos, bool newValue)
 	c |= mask;
 	return c;
 }
+bool ByteArray::Get(int pos)
+{
+	return GetBit(list[pos / 8], pos % 8);
+}
 void ByteArray::AddBit(bool bit)
 {
 	int offset = position % 8;

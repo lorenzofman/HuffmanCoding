@@ -115,15 +115,25 @@ void Huffman::Compress(std::ifstream* stream)
 	stream->close();
 	delete filteredOccurrences;
 }
-
+ByteArray ReadRest(std::ifstream* stream)
+{
+	ByteArray firstLine;
+	char ch = 0;
+	while (stream->eof() == false)
+	{
+		stream->get(ch);
+		firstLine.AddByte(ch);
+	}
+	return firstLine;
+}
 ByteArray ReadFirstLine(std::ifstream* stream)
 {
 	ByteArray firstLine;
 	char ch = 0;
-	// Gets only the first real line (\n\r)
 	while(stream->eof() == false)
 	{
 		stream->get(ch);
+		//std::cout << ch << std::endl;
 		if (ch == '\n')
 		{
 			return firstLine;
@@ -170,19 +180,44 @@ void ParseDictionary(char *str, HuffmanNode* root)
 		AddCodeToTree(root, codeValidDigits, code, ascii);
 	}
 }
-void BuildTreeFromDictionary(std::ifstream* stream)
+HuffmanNode* BuildTreeFromDictionary(std::ifstream* stream)
 {
-	int bitCount;
-	*stream >> bitCount;
-	stream->clear();
-	stream->seekg(4); // Skips first integer
 	ByteArray firstLine = ReadFirstLine(stream);
 	char* str = firstLine.ToString();
 	HuffmanNode* root = new HuffmanNode('\0', nullptr, nullptr, 0);
 	ParseDictionary(str, root);
-	
+	return root;
+}
+char* Decode(HuffmanNode* tree, std::ifstream* stream, int bits)
+{
+	ByteArray array = ReadRest(stream);
+	ArrayList<char> list;
+	HuffmanNode* current = tree;
+	for (int i = 0; i < bits; i++)
+	{
+		bool bit = array.Get(i);
+		current = bit ? current->right : current->left;
+		if (current->key) // Leaf node
+		{
+			list.Add(current->key);
+			current = tree;
+		}
+	}
+	char* str = new char[list.Count() + 1];
+	for (int i = 0; i < list.Count(); i++)
+	{
+		str[i] = list[i];
+	}
+	str[list.Count()] = '\0';
+	return str;
 }
 void Huffman::Decompress(std::ifstream* stream)
 {
-	BuildTreeFromDictionary(stream);
+	int bitCount;
+	stream->read(reinterpret_cast<char*>(&bitCount), sizeof(int));
+	stream->clear();
+	stream->seekg(4); // Skips first integer
+	HuffmanNode* tree = BuildTreeFromDictionary(stream);
+	char* result = Decode(tree, stream, bitCount);
+	std::cout << result;
 }
