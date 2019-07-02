@@ -45,12 +45,14 @@ inline HuffmanNode* HuffmanNode::InsertLeft(HuffmanNode* node)
 {
 	node->parent = this;
 	this->left = node;
+	return node;
 }
 
 inline HuffmanNode* HuffmanNode::InsertRight(HuffmanNode* node)
 {
 	node->parent = this;
 	this->right = node;
+	return node;
 }
 
 

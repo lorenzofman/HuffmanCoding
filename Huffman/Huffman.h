@@ -96,7 +96,7 @@ void CreateOutputFileFromStreamAndDictionaries(std::ifstream* stream, ArrayList<
 	}
 	int position = real.code.position + (bits - 1);
 	writer.write(reinterpret_cast<const char*>(&position), 4);
-	writer.write(byteFile.ToString(), byteFile.list.Count() + 1);
+	writer.write(byteFile.ToString(), 1+  byteFile.list.Count());
 }
 
 void Huffman::Compress(std::ifstream* stream)
@@ -116,7 +116,7 @@ void Huffman::Compress(std::ifstream* stream)
 	delete filteredOccurrences;
 }
 
-ByteArray ReadDictionary(std::ifstream* stream)
+ByteArray ReadFirstLine(std::ifstream* stream)
 {
 	ByteArray firstLine;
 	char ch = 0;
@@ -129,20 +129,58 @@ ByteArray ReadDictionary(std::ifstream* stream)
 			return firstLine;
 		}
 		firstLine.AddByte(ch);
-		std::cout << (int)ch << std::endl;
 	}
 	return firstLine;
 }
-
+void AddCodeToTree(HuffmanNode* root, char validDigits, char code, char ascii)
+{
+	HuffmanNode* current = root;
+	for (int i = 0; i < validDigits; i++)
+	{
+		bool bit = GetBit(code, i);
+		if (bit) // Navigate right
+		{
+			if (current->right == nullptr)
+			{
+				current->InsertRight(new HuffmanNode('\0', nullptr, nullptr, 0));
+			}
+			current = current->right;
+		}
+		else // Navigate left
+		{
+			if (current->left == nullptr)
+			{
+				current->InsertLeft(new HuffmanNode('\0', nullptr, nullptr, 0));
+			}
+			current = current->left;
+		}
+	}
+	current->key = ascii;
+}
+void ParseDictionary(char *str, HuffmanNode* root)
+{
+	char codeValidDigits;
+	char code;
+	char ascii;
+	while (*str)
+	{
+		codeValidDigits = *str++;
+		code = *str++;
+		ascii = *str++;
+		AddCodeToTree(root, codeValidDigits, code, ascii);
+	}
+}
 void BuildTreeFromDictionary(std::ifstream* stream)
 {
 	int bitCount;
 	*stream >> bitCount;
 	stream->clear();
 	stream->seekg(4); // Skips first integer
-	ByteArray firstLine = ReadDictionary(stream);
-
-
+	ByteArray firstLine = ReadFirstLine(stream);
+	char* str = firstLine.ToString();
+	HuffmanNode* root = new HuffmanNode('\0', nullptr, nullptr, 0);
+	ParseDictionary(str, root);
+	
 }
 void Huffman::Decompress(std::ifstream* stream)
 {
