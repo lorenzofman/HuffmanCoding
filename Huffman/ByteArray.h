@@ -9,7 +9,6 @@ public:
 	void AddBit(bool bit);
 	void AddByte(char byte);
 	char* ToString();
-	char* Print();
 	ArrayList<char> list;
 	ByteArray();
 };

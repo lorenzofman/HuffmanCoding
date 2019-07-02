@@ -44,26 +44,6 @@ char* ByteArray::ToString()
 	str[list.Count()] = '\0';
 	return str;
 }
-char* ByteArray::Print()
-{
-	char* str = new char[9];
-	for (int i = 0; i < list.Count(); i++)
-	{
-		for (int j = 0; j < 8; j++) 
-		{
-			if (GetBit(list[i], j))
-			{
-				str[j] = '1';
-			}
-			else
-			{
-				str[j] = '0';
-			}
-		}
-	}
-	str[position] = '\0';
-	return str;
-}
 ByteArray::ByteArray()
 {
 	this->position = 0;
