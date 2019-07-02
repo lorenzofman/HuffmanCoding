@@ -5,6 +5,7 @@
 #include "ArrayList.h"
 #include "Dictionary.h"
 #include "ByteArray.h"
+#include <string>
 class Huffman
 {
 public:
@@ -111,14 +112,39 @@ void Huffman::Compress(std::ifstream* stream)
 	stream->clear();
 	stream->seekg(0);
 	CreateOutputFileFromStreamAndDictionaries(stream, codes);
+	stream->close();
 	delete filteredOccurrences;
 }
 
-void BuildTreeFromDictionary()
+ByteArray ReadDictionary(std::ifstream* stream)
 {
+	ByteArray firstLine;
+	char ch = 0;
+	// Gets only the first real line (\n\r)
+	while(stream->eof() == false)
+	{
+		stream->get(ch);
+		if (ch == '\n')
+		{
+			return firstLine;
+		}
+		firstLine.AddByte(ch);
+		std::cout << (int)ch << std::endl;
+	}
+	return firstLine;
+}
+
+void BuildTreeFromDictionary(std::ifstream* stream)
+{
+	int bitCount;
+	*stream >> bitCount;
+	stream->clear();
+	stream->seekg(4); // Skips first integer
+	ByteArray firstLine = ReadDictionary(stream);
+
 
 }
 void Huffman::Decompress(std::ifstream* stream)
 {
-	BuildTreeFromDictionary();
+	BuildTreeFromDictionary(stream);
 }

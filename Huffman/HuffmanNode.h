@@ -8,6 +8,8 @@ public:
 	HuffmanNode* right;
 	HuffmanNode* parent;
 	HuffmanNode* Merge(HuffmanNode*);
+	HuffmanNode* InsertLeft(HuffmanNode*);
+	HuffmanNode* InsertRight(HuffmanNode*);
 	HuffmanNode(char, HuffmanNode*, HuffmanNode*, int);
 	inline bool operator>(const HuffmanNode& rhs) const
 	{
@@ -37,6 +39,18 @@ inline HuffmanNode* HuffmanNode::Merge(HuffmanNode* other)
 	this->parent = merged;
 	other->parent = merged;
 	return merged;
+}
+
+inline HuffmanNode* HuffmanNode::InsertLeft(HuffmanNode* node)
+{
+	node->parent = this;
+	this->left = node;
+}
+
+inline HuffmanNode* HuffmanNode::InsertRight(HuffmanNode* node)
+{
+	node->parent = this;
+	this->right = node;
 }
 
 
