@@ -10,8 +10,7 @@ public:
 	inline bool operator>(const Occurrence&) const;
 	inline bool operator<(const Occurrence&) const;
 	inline bool operator == (const Occurrence&) const;
-}; template<typename T>
-
+};
 Occurrence* FindTextFileOccurrences(std::ifstream *stream) 
 {
 	Occurrence* occurrences = new Occurrence[256];

@@ -5,7 +5,6 @@
 #include "ArrayList.h"
 #include "Dictionary.h"
 #include "ByteArray.h"
-template <typename T>
 class Huffman
 {
 public:
@@ -99,11 +98,10 @@ void CreateOutputFileFromStreamAndDictionaries(std::ifstream* stream, ArrayList<
 	writer.write(byteFile.ToString(), byteFile.list.Count() + 1);
 }
 
-template<typename T>
-void Huffman<T>::Compress(std::ifstream* stream)
+void Huffman::Compress(std::ifstream* stream)
 {
 	int filteredOccurrencesSize, fileSize;
-	Occurrence* occurrences = FindTextFileOccurrences<T*>(stream);
+	Occurrence* occurrences = FindTextFileOccurrences(stream);
 	Occurrence* filteredOccurrences = FilterOccurrences(occurrences, &filteredOccurrencesSize, &fileSize);
 	QuickSort<Occurrence>(filteredOccurrences, filteredOccurrencesSize);
 	delete occurrences;
@@ -116,8 +114,11 @@ void Huffman<T>::Compress(std::ifstream* stream)
 	delete filteredOccurrences;
 }
 
-template<typename T>
-void Huffman<T>::Decompress(std::ifstream* stream)
+void BuildTreeFromDictionary()
 {
 
+}
+void Huffman::Decompress(std::ifstream* stream)
+{
+	BuildTreeFromDictionary();
 }
