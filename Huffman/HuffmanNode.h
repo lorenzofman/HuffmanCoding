@@ -15,9 +15,9 @@ public:
 	{
 		return this->frequency > rhs.frequency;
 	}
-	inline bool operator<(const HuffmanNode& rhs) const
+	inline bool operator<(const HuffmanNode* rhs) const
 	{
-		return this->frequency < rhs.frequency;
+		return this->frequency < rhs->frequency;
 	}
 	inline bool operator == (const HuffmanNode& rhs) const
 	{

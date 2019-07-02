@@ -6,6 +6,7 @@
 #include "Dictionary.h"
 #include "ByteArray.h"
 #include <string>
+
 class Huffman
 {
 public:
@@ -39,6 +40,23 @@ Dictionary TracebackCode(HuffmanNode* leaf, int height)
 	//str[size - 1] = 0;
 	return Dictionary(c, arrayList);
 }
+
+HuffmanNode* Min(ArrayList<HuffmanNode*> ls)
+{
+	if (ls.Count() == 0)
+	{
+		throw "Exception";
+	}
+	HuffmanNode* element = ls[0];
+	for (int i = 0; i < ls.Count(); i++)
+	{
+		if (ls[i]->frequency < element->frequency)
+		{
+			element = ls[i];
+		}
+	}
+	return element;
+}
 void ExtractCodesFromHeap(HuffmanNode* root, ArrayList<Dictionary>* codes, int height)
 {
 	if (root->key != 0)
@@ -61,8 +79,9 @@ HuffmanNode* CreateHuffmanHeap(Occurrence* sortedOccurrences, int size, int file
 	}
 	while(workingNodes.Count() > 1)
 	{
-		HuffmanNode* min = workingNodes.Remove(workingNodes.Min());
-		HuffmanNode* min2 = workingNodes.Remove(workingNodes.Min());
+		HuffmanNode* min = workingNodes.Remove(Min(workingNodes));
+		HuffmanNode* min2 = workingNodes.Remove(Min(workingNodes));
+
 		workingNodes.Add(min->Merge(min2));
 	}
 	return workingNodes[0];
@@ -71,18 +90,18 @@ HuffmanNode* CreateHuffmanHeap(Occurrence* sortedOccurrences, int size, int file
 void CreateOutputFileFromStreamAndDictionaries(std::ifstream* stream, ArrayList<Dictionary> codes)
 {
 	std::ofstream writer = std::ofstream("compress.txt");
-	ByteArray byteFile;
 	for (int i = 0; i < codes.Count(); i++)
 	{
-		byteFile.AddByte((char)codes[i].code.position);
-		byteFile.AddByte(codes[i].code.list[0]);
-		byteFile.AddByte(codes[i].key);
+		writer.put(codes[i].code.position);
+		writer.put(codes[i].code.list[0]);
+		writer.put(codes[i].key);
 	}
-	byteFile.AddByte('\n');
+	writer.put('\n');
 	char ch;
 	Dictionary containerVariable;
 	Dictionary real;
 	int bits = 0;
+	ByteArray byteFile;
 	while ((ch = stream->get()) != EOF)
 	{
 		containerVariable.key = ch;
@@ -90,12 +109,13 @@ void CreateOutputFileFromStreamAndDictionaries(std::ifstream* stream, ArrayList<
 		for (int i = 0; i < real.code.position; i++)
 		{
 			char c = real.code.list[i / 8];
-			byteFile.AddBit(GetBit(c, i % 8));
+			bool bit = GetBit(c, i % 8);
+			std::cout << "Adding: " << bit << std::endl;
+			byteFile.AddBit(bit);
 		}
-		bits++;
+		bits += real.code.position;
 	}
-	int position = real.code.position + (bits - 1);
-	writer.write(reinterpret_cast<const char*>(&position), 4);
+	writer.write(reinterpret_cast<const char*>(&bits), 4);
 	writer.write(byteFile.ToString(), 1+  byteFile.list.Count());
 }
 
@@ -111,6 +131,10 @@ void Huffman::Compress(std::ifstream* stream)
 	ExtractCodesFromHeap(root, &codes, 1);
 	stream->clear();
 	stream->seekg(0);
+	for (int i = 0; i < codes.Count(); i++)
+	{
+		std::cout << codes[i].code.Print() << ": " << codes[i].key << std::endl;
+	}
 	CreateOutputFileFromStreamAndDictionaries(stream, codes);
 	stream->close();
 	delete filteredOccurrences;
@@ -122,7 +146,10 @@ ByteArray ReadRest(std::ifstream* stream)
 	while (stream->eof() == false)
 	{
 		stream->get(ch);
-		firstLine.AddByte(ch);
+		if (ch) 
+		{
+			firstLine.AddByte(ch);
+		}
 	}
 	return firstLine;
 }
@@ -167,6 +194,21 @@ void AddCodeToTree(HuffmanNode* root, char validDigits, char code, char ascii)
 	}
 	current->key = ascii;
 }
+void PrintCodeTree(HuffmanNode* root, char* str, int i)
+{
+	if (root->key == false)
+	{
+		str[i] = '0';
+		PrintCodeTree(root->left, str, i + 1);
+		str[i] = '1';
+		PrintCodeTree(root->right, str, i + 1);
+	}
+	else 
+	{
+		str[i] = '\0';
+		std::cout << str << ": " << root->key << std::endl;
+	}
+}
 void ParseDictionary(char *str, HuffmanNode* root)
 {
 	char codeValidDigits;
@@ -179,6 +221,8 @@ void ParseDictionary(char *str, HuffmanNode* root)
 		ascii = *str++;
 		AddCodeToTree(root, codeValidDigits, code, ascii);
 	}
+	char* buffer = new char[8];
+	PrintCodeTree(root, buffer, 0);
 }
 HuffmanNode* BuildTreeFromDictionary(std::ifstream* stream)
 {
@@ -213,11 +257,9 @@ char* Decode(HuffmanNode* tree, std::ifstream* stream, int bits)
 }
 void Huffman::Decompress(std::ifstream* stream)
 {
+	HuffmanNode* tree = BuildTreeFromDictionary(stream);
 	int bitCount;
 	stream->read(reinterpret_cast<char*>(&bitCount), sizeof(int));
-	stream->clear();
-	stream->seekg(4); // Skips first integer
-	HuffmanNode* tree = BuildTreeFromDictionary(stream);
 	char* result = Decode(tree, stream, bitCount);
 	std::cout << result;
 }

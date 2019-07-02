@@ -10,7 +10,7 @@ int main()
 	std::ifstream *sourceFile = new std::ifstream("test.txt", std::ifstream::in);
 	Huffman huffman;
 	huffman.Compress(sourceFile);
-	std::ifstream* compressedFile = new std::ifstream("compress.txt", std::ifstream::in);
-	huffman.Decompress(compressedFile);
+	//std::ifstream* compressedFile = new std::ifstream("compress.txt", std::ifstream::in);
+	//huffman.Decompress(compressedFile);
 	return 0;
 }

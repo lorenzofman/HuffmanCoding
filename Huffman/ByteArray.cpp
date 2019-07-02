@@ -1,14 +1,14 @@
 #include "ByteArray.h"
 bool GetBit(char c, int pos)
 {
-	char mask = 1 << pos;
+	char mask = 1 << (7 - pos);
 	c &= mask;
-	return (bool)c;
+	return c;
 }
 char SetBit(char c, int pos, bool newValue)
 {
 	char mask = newValue;
-	mask <<= pos;
+	mask <<= 7 - pos;
 	c |= mask;
 	return c;
 }
@@ -42,6 +42,26 @@ char* ByteArray::ToString()
 		str[i] = list[i];
 	}
 	str[list.Count()] = '\0';
+	return str;
+}
+char* ByteArray::Print()
+{
+	char* str = new char[9];
+	for (int i = 0; i < list.Count(); i++)
+	{
+		for (int j = 0; j < 8; j++) 
+		{
+			if (GetBit(list[i], j))
+			{
+				str[j] = '1';
+			}
+			else
+			{
+				str[j] = '0';
+			}
+		}
+	}
+	str[position] = '\0';
 	return str;
 }
 ByteArray::ByteArray()

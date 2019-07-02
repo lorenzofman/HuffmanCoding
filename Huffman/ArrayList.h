@@ -15,11 +15,9 @@ public:
 	T Remove(T);
 	T RemoveAt(int);
 	T Find(T);
-	T Min();
 	int Count();
 	T& operator[] (int);
 };
-
 template<class T>
 ArrayList<T>::ArrayList()
 {
@@ -101,24 +99,6 @@ template<class T>
 T ArrayList<T>::Find(T element)
 {
 	return arrayList[IndexOf(element)];
-}
-
-template<class T>
-inline T ArrayList<T>::Min()
-{
-	if (count == 0)
-	{
-		throw "Exception";
-	}
-	T element = arrayList[0];
-	for (int i = 0; i < count; i++)
-	{
-		if (arrayList[i] < element)
-		{
-			element = arrayList[i];
-		}
-	}
-	return element;
 }
 
 
